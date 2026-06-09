@@ -33,12 +33,12 @@ The application operates entirely on the client side, using free, keyless geocod
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/achrafthedev/basic_weather_app.git
+git clone https://github.com/achrafthedev/skyflow.git
 ```
 
 ### 2️⃣ Navigate to the Directory
 ```bash
-cd basic_weather_app
+cd skyflow
 ```
 
 ### 3️⃣ Launch the App
@@ -68,7 +68,7 @@ This project is fully containerized. To spin up the weather dashboard locally:
 ## 📂 Architecture & Files
 
 ```
-basic_weather_app/
+skyflow/
 ├── index.html          # HTML5 structure, semantic panels, libraries integration (Chart.js & Lucide)
 ├── style.css           # Premium CSS design tokens, dynamic themes, responsive configurations
 ├── script.js           # Autocomplete debounce engine, unit-toggles, chart rendering, API integrations
