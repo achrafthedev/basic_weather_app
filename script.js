@@ -191,17 +191,35 @@ const setupUnitControls = () => {
     });
 };
 
+// Spelling normalization map for major cities with alternate translations
+const cityAliases = {
+    'marrakech': 'marrakesh',
+    'kiev': 'kyiv',
+    'peking': 'beijing',
+    'saigon': 'ho chi minh city',
+    'calcutta': 'kolkata',
+    'bombay': 'mumbai',
+    'canton': 'guangzhou'
+};
+
 // Setup Search Input Dropdown & Geocoding Autocomplete
 const setupSearchAutocomplete = () => {
     const handleSearchInput = async () => {
-        const query = elements.search.value.trim();
+        let query = elements.search.value.trim();
         if (query.length < 2) {
             hideDropdown();
             return;
         }
 
+        // Apply spelling normalization aliases under the hood
+        let normalizedQuery = query;
+        Object.keys(cityAliases).forEach(alias => {
+            const regex = new RegExp(`\\b${alias}\\b`, 'gi');
+            normalizedQuery = normalizedQuery.replace(regex, cityAliases[alias]);
+        });
+
         try {
-            const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=6&language=en&format=json`);
+            const res = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(normalizedQuery)}&count=6&language=en&format=json`);
             const data = await res.json();
             
             if (data.results && data.results.length > 0) {
