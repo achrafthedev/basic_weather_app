@@ -1,105 +1,95 @@
+# 🌦️ SkyFlow - Premium Weather Dashboard
 
-# 🌦️ Weather App
+SkyFlow is a modern, high-fidelity single-page weather application that translates real-time coordinates into comprehensive meteorological insights. Leveraging a glassmorphic aesthetic, the dashboard responds dynamically to weather conditions and ambient times, offering an engaging user experience.
 
-This is a **simple weather app** that allows users to get real-time weather information for any city. The app uses the **Open-Meteo API** to fetch weather data based on the city’s latitude and longitude. It features a clean UI built with **Bootstrap 5**.
-
----
-
-## 🚀 Features
-- Search for any city to get current weather data.
-- Displays temperature, wind speed, and weather conditions.
-- Responsive design using **Bootstrap 5**.
-- Uses **Open-Meteo API**, which is free and does not require an API key.
+The application operates entirely on the client side, using free, keyless geocoding and forecast APIs provided by **Open-Meteo**.
 
 ---
 
-## 🛠️ Technologies Used
-- **HTML5**
-- **CSS3**
-- **JavaScript (ES6)**
-- **Bootstrap 5**
-- **Open-Meteo API**
+## ✨ Features
+
+- **Global City Search & Autocomplete:** Typahead search matching administrative regions, country names, and flag emojis (e.g., `Paris, Île-de-France, 🇫🇷 France`) for quick discovery.
+- **Dynamic Glassmorphic Theme:** Background gradients and card overlays automatically change depending on current weather conditions (Clear, Cloudy, Rainy, Snowy, Stormy) and local day/night status.
+- **Detailed Meteorological Parameters:** Dashboard displays apparent temperature ("feels like"), wind speed, relative humidity, UV index, atmospheric surface pressure, visibility, and precise local sunrise/sunset times.
+- **Interactive Multi-Axis Charting:** Integrated Chart.js visualization plotting 24-hour temperature curves alongside precipitation probability overlays.
+- **Metric & Imperial System Toggle:** Instantly switch calculations and displays between metric (`°C`, `km/h`, `km`, `hPa`) and imperial (`°F`, `mph`, `mi`, `inHg`) standards.
+- **Geolocation Integration:** Automatically detect coordinates and pull local forecasts with a single click.
+- **Search History Caching:** Saved searches are stored locally in the browser for rapid quick-access shortcuts.
 
 ---
 
-## 📋 How to Run the Project
+## 🛠️ Stack & Technologies
+
+- **Core Structure:** HTML5 (Semantic Markup)
+- **Styling:** Custom CSS3 Variables, Responsive Flexbox & Grid layouts, Glassmorphic filters
+- **Logic:** Vanilla JavaScript (ES6 Modules, Fetch API, LocalStorage, Navigator Geolocation)
+- **Visuals & Charts:** Chart.js (multi-axis line graphs with dynamic gradients)
+- **Iconography:** Lucide Icons (SVG vector weather and interface symbols)
+- **External Data Providers:** Open-Meteo Geocoding and Forecast APIs
+
+---
+
+## 📋 Getting Started
 
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/achrafthedev/basic_weather_app.git
 ```
 
-### 2️⃣ Navigate to the Project Directory
+### 2️⃣ Navigate to the Directory
 ```bash
 cd basic_weather_app
 ```
 
-### 3️⃣ Open the `index.html` File
-You can simply open the `index.html` file in your browser to run the app.
+### 3️⃣ Launch the App
+
+#### Option A: Running Directly
+No build tools or servers are required! Simply open the `index.html` file in any modern web browser.
+- Double-click `index.html` in your file explorer.
+- Or host a local static server (e.g., using VS Code's Live Server extension, Python's `http.server`, or similar).
+
+#### Option B: Running with Docker 🐳
+This project is fully containerized. To spin up the weather dashboard locally:
+
+1. **Build and Run via Docker Compose:**
+   ```bash
+   docker-compose up -d --build
+   ```
+2. **Access the Application:**
+   Open your browser and navigate to [http://localhost:8082](http://localhost:8082).
+
+3. **Stop the Container:**
+   ```bash
+   docker-compose down
+   ```
 
 ---
 
-## 🌐 API Details
+## 📂 Architecture & Files
 
-### **Geocoding API** (to get latitude and longitude):
-`https://geocoding-api.open-meteo.com/v1/search?name={city}`
-
-### **Weather API** (to get weather data):
-`https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true`
-
----
-
-## 📂 Project Structure
 ```
-weather-app/
-├── index.html
-├── style.css
-├── script.js
+basic_weather_app/
+├── index.html          # HTML5 structure, semantic panels, libraries integration (Chart.js & Lucide)
+├── style.css           # Premium CSS design tokens, dynamic themes, responsive configurations
+├── script.js           # Autocomplete debounce engine, unit-toggles, chart rendering, API integrations
+├── Dockerfile          # Configuration to serve static files inside Nginx Alpine container
+└── docker-compose.yml  # Local deployment definition mapping service to port 8082
 ```
 
-- **index.html**: The main HTML file containing the structure of the app.
-- **style.css**: Custom CSS file for additional styling.
-- **script.js**: JavaScript file containing the logic to fetch and display weather data.
-
 ---
 
+## 🌐 API Integrations
 
-## ⚙️ How It Works
-1. The user enters a city name in the input field.
-2. The app sends a request to the **Geocoding API** to get the latitude and longitude of the city.
-3. Using the latitude and longitude, the app sends a request to the **Weather API** to get the current weather data.
-4. The weather information is displayed on the screen.
+### **1. Geocoding Autocomplete Search**
+Queries matching cities around the globe:
+`https://geocoding-api.open-meteo.com/v1/search?name={query}&count=6&language=en&format=json`
 
----
-
-## 🎨 UI Enhancements
-- **Bootstrap 5** is used to create a responsive and clean UI.
-- The input field and button are styled to ensure a smooth user experience.
-
----
-
-## 🤖 Future Improvements
-- Add more weather details (e.g., humidity, sunrise/sunset times).
-- Include a 5-day weather forecast.
-- Add a loading spinner while fetching data.
+### **2. Forecast Data**
+Queries detailed forecast arrays:
+`https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,weather_code,uv_index,surface_pressure,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,precipitation_probability_max&timezone={timezone}&temperature_unit={tempUnit}&windspeed_unit={windUnit}&precipitation_unit={precipUnit}`
 
 ---
 
 ## 📄 License
-This project is licensed under the **MIT License**. You are free to use, modify, and distribute this project as you wish.
 
----
-
-## 🤝 Contributing
-Contributions are welcome! If you want to improve this project, feel free to submit a pull request.
-
----
-
-## 📧 Contact
-For any inquiries or feedback, please contact me at:
-- **Email**: achrafthedev@gmail.com
-- **GitHub**: [https://github.com/achrafthedev](https://github.com/achrafthedev)
-
----
-
-### 🌟 **If you like this project, please give it a star on GitHub!** 🌟
+This project is licensed under the **MIT License**. You are free to copy, modify, and distribute it.
